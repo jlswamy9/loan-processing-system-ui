@@ -1,0 +1,90 @@
+<div class="d-flex flex-column vh-100">
+  <!-- Top Navbar -->
+  <nav class="header-navbar navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">DCCB -KHAMMAM</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar + Main Content -->
+  <div class="d-flex flex-grow-1">
+    <!-- Sidebar -->
+    <div class="navbar-left bg-light border-end p-3" style="width: 250px;">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Loan Applications</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Approvals</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Reports</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-grow-1 p-4">
+      <h2>Welcome,{{user ? user.role:""}}</h2>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Pending Loans</h5>
+              <p class="card-text display-6">12</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Approved Today</h5>
+              <p class="card-text display-6">5</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Rejected Applications</h5>
+              <p class="card-text display-6">3</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h4>Recent Applications</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Applicant</th>
+              <th>Loan Type</th>
+              <th>Status</th>
+              <th>Submitted On</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>John Doe</td>
+              <td>Home Loan</td>
+              <td>Pending</td>
+              <td>2025-07-08</td>
+            </tr>
+            <tr>
+              <td>Jane Smith</td>
+              <td>Personal Loan</td>
+              <td>Approved</td>
+              <td>2025-07-07</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
