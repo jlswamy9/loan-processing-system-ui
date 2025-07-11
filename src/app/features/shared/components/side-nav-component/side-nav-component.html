@@ -1,0 +1,9 @@
+ <!-- Sidebar -->
+    <div class="navbar-left bg-light border-end p-3" style="width: 250px;">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
+        <li class="nav-item" *ngIf="user?.role == 'SUPERVISOR'"><a class="nav-link" href="/loans">Loan Applications</a></li>
+        <li class="nav-item" *ngIf="user?.role == 'SUPERVISOR'"><a class="nav-link" href="/loans/create">Apply New Loan</a></li>
+        <li class="nav-item" *ngIf="user?.role !== 'SUPERVISOR'"><a class="nav-link" href="#">My Approvals</a></li>
+      </ul>
+    </div>

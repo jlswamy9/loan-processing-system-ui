@@ -1,0 +1,80 @@
+<div class="container-fluid">
+    <h2> Loan Application Form</h2>
+    
+    <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+      <div class="col-sm-6">
+      <fieldset>
+        <legend>Personal Information</legend>
+        <label>Full Name *</label>
+        <input type="text" formControlName="fullName">
+        <div class="error" *ngIf="submitted && loanForm.get('fullName')?.invalid">Full Name is required.</div>
+
+        <label>Date of Birth *</label>
+        <input type="date" formControlName="dob">
+        <div class="error" *ngIf="submitted && loanForm.get('dob')?.invalid">Date of Birth is required.</div>
+
+        <label>ID Number *</label>
+        <input type="text" formControlName="idNumber">
+        <div class="error" *ngIf="submitted && loanForm.get('idNumber')?.invalid">ID Number is required.</div>
+      </fieldset>
+      </div>
+      <div class="col-sm-6">
+      <fieldset>
+        <legend>Contact Details</legend>
+        <label>Email *</label>
+        <input type="email" formControlName="email">
+        <div class="error" *ngIf="submitted && loanForm.get('email')?.invalid">Valid Email is required.</div>
+
+        <label>Phone Number *</label>
+        <input type="tel" formControlName="phone">
+        <div class="error" *ngIf="submitted && loanForm.get('phone')?.invalid">Phone is required.</div>
+
+        <label>Address</label>
+        <textarea rows="2" formControlName="address"></textarea>
+      </fieldset>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+<fieldset>
+        <legend>Employment Information</legend>
+        <label>Employer Name</label>
+        <input type="text" formControlName="employer">
+
+        <label>Position/Title</label>
+        <input type="text" formControlName="position">
+
+        <label>Monthly Income (INR)</label>
+        <input type="number" formControlName="income" min="0">
+      </fieldset>
+        </div>
+        <div class="col-sm-6">
+        <fieldset>
+        <legend>Loan Details</legend>
+        <label>Loan Amount Requested (INR) *</label>
+        <input type="number" formControlName="loanAmount">
+        <div class="error" *ngIf="submitted && loanForm.get('loanAmount')?.invalid">Loan Amount is required.</div>
+
+        <label>Purpose of Loan *</label>
+        <select formControlName="loanPurpose">
+          <option value="">--Select--</option>
+          <option value="home">Home Purchase</option>
+          <option value="car">Car Loan</option>
+          <option value="business">Business</option>
+          <option value="education">Education</option>
+          <option value="other">Other</option>
+        </select>
+        <div class="error" *ngIf="submitted && loanForm.get('loanPurpose')?.invalid">Loan Purpose is required.</div>
+
+        <label>Repayment Period (months)</label>
+        <input type="number" formControlName="repaymentPeriod" min="1">
+      </fieldset>
+      </div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary btn-submit">Submit Application</button>
+      <a href="/loans" class="btn btn-secondary">Cancel</a>
+      <p class="note">* Required fields</p>
+   </form>
+  </div>

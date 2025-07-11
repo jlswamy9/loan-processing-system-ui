@@ -1,7 +1,10 @@
-<div class="login-container container-fluid d-flex justify-content-center align-items-center vh-100">
-  <div class="card p-4" style="width: 24rem;">
-    <h3 class="text-center">{{userType}} Login</h3>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<app-header-component [hideNavbar]="true"></app-header-component>
+<div class="login-container container-fluid d-flex justify-content-center align-items-center mt-5">
+  <div class="card" style="width: 24rem;">
+    <div class="card-title">
+      Loan Processing System
+    </div>
+    <form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label>User Id</label>
         <input type="text" class="form-control" formControlName="userId">
@@ -11,9 +14,10 @@
         <input type="password" class="form-control" formControlName="password">
       </div>
       <div *ngIf="loginForm?.errors" class="errors text-danger">
-  Invalid User Id or password.
+        <span *ngIf="error['inValid']">Invalid Credentials!</span>
+        <span *ngIf="error['netWork']">NETWORk_ERR : Try after sometime!</span>
 </div>
-      <button class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+      <button class="btn login-btn w-100" [disabled]="loginForm.invalid">Login</button>
     </form>
   </div>
 </div>

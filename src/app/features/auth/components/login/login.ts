@@ -10,6 +10,10 @@ import { AuthService } from '../../services/auth-service';
   styleUrl: './login.css'
 })
 export class Login {
+  error :any = {
+    inValid:false,
+    netWork:false
+  };
   userType!:string;
   loginForm!:FormGroup;
    constructor(
@@ -18,12 +22,13 @@ export class Login {
     private authService:AuthService,
     private router:Router
   ) {
+   
     this.loginForm = fb.group({
       userId: ['', [Validators.required]],
       password: ['', Validators.required]
     });
+    
     }
-
     ngOnInit(){
       this.userType = this.route.snapshot.queryParamMap.get('userType') || 'user';
     }
@@ -33,14 +38,20 @@ export class Login {
        this.authService.getUserByUserNameAndPassword(this.loginForm.value.email,this.loginForm.value.password).subscribe(users=>{
      if(users.length == 0){
       console.error("User not found!");
-      this.loginForm.setErrors({invalid:true});
+      this.error.inValid = true;
+      this.loginForm.setErrors(this.error);
      }
      else{
       console.log("User loggedin succesfully!");
       localStorage.setItem("user",JSON.stringify(users[0]));
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/']);
      }
-    });
+    },
+    (err)=>{
+      this.error.netWork = true;
+      this.loginForm.setErrors(this.error);
+    }
+  );
       // Add your authentication logic here
     } else {
       this.loginForm.markAllAsTouched();

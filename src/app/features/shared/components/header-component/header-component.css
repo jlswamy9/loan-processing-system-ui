@@ -1,0 +1,14 @@
+.navbar-brand img{
+    width:300px;
+}
+.header-navbar{
+    border-bottom: solid 2px #00a44c;
+    color: #00a44c;
+    text-align: center;
+}
+
+.nav-link{
+    color: #00a44c !important;
+    
+}
+

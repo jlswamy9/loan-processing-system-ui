@@ -1,6 +1,50 @@
 {
-    "users": [
-    { "id": 1, "userId": "banksup001", "password": "sup123", "role": "SUPERVISOR" },
-    { "id": 2, "userId": "bankmanager001", "password": "manager123", "role": "MANAGER" }
+  "users": [
+    {
+      "id": 1,
+      "userId": "banksup001",
+      "password": "sup123",
+      "role": "SUPERVISOR"
+    },
+    {
+      "id": 2,
+      "userId": "bankmanager001",
+      "password": "manager123",
+      "role": "MANAGER"
+    }
+  ],
+  "loans": [
+    {
+      "fullName": "Rohit Sharma",
+      "dob": "1990-05-15",
+      "idNumber": "12344",
+      "email": "rahul.sharma@example.com",
+      "phone": "+91 9876543210",
+      "address": "123 MG Road, Mumbai",
+      "employer": "ABC Pvt Ltd",
+      "position": "Software Engineer",
+      "income": 80000,
+      "loanAmount": 500000,
+      "loanPurpose": "Home",
+      "repaymentPeriod": 60,
+      "status": "SUBMITTED",
+      "id": "756789"
+    },
+    {
+      "fullName": "John Willaims",
+      "dob": "1987-04-08",
+      "idNumber": "9188177171",
+      "email": "johnw@test.com",
+      "phone": "9505805219",
+      "address": "TEXAS",
+      "employer": "OPTUM",
+      "position": "MANAGER",
+      "income": 200000,
+      "loanAmount": 5000000,
+      "loanPurpose": "home",
+      "repaymentPeriod": 90,
+      "status": "SUBMITTED",
+      "id": "b6eb"
+    }
   ]
 }

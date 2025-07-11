@@ -1,0 +1,32 @@
+<div class="container-fluid">
+      <h2>Loan Applications</h2>
+      <!-- <a href="loans/create" class="btn btn-primary btn-create mb-2">Apply New Loan</a> -->
+      <table>
+        <thead>
+          <tr>
+            <th>Loan Id</th>
+            <th>Applicant Name</th>
+            <th>Loan Amount (INR)</th>
+            <th>Purpose</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of items$ | async">
+            <td>
+                <a href="/loans/details?loanId={{app.id}}">{{ app.id }}</a> 
+            </td>
+            <td>{{ app.fullName }}</td>
+            <td>{{ app.loanAmount | currency:'INR' }}</td>
+            <td>{{ app.loanPurpose }}</td>
+            <td>
+              <span [ngClass]="statusClass(app.status)">{{ app.status }}</span>
+            </td>
+            <!-- <td>
+              <button class="approve" (click)="updateStatus(app, 'Approved')" [disabled]="app.status !== 'Pending'">Approve</button>
+              <button class="reject" (click)="updateStatus(app, 'Rejected')" [disabled]="app.status !== 'Pending'">Reject</button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
