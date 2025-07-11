@@ -1,0 +1,36 @@
+<div class="container-fluid" *ngIf="loanDetails$ | async as loan">
+      <h2>Loan Application Details</h2>
+      <div class="card" *ngIf="loan">
+        <h3>Loan ID : {{ loan[0].id }}</h3>
+        <p><strong>Status:</strong>&nbsp;<span [ngClass]="loan[0].status">{{ loan[0].status }}</span></p>
+
+        <div class="section">
+          <h4>Personal Information</h4>
+          <p><strong>Applicant Name</strong> {{ loan[0].fullName }}</p>
+          <p><strong>Date of Birth:</strong> {{ loan[0].dob }}</p>
+          <p><strong>Email:</strong> {{ loan[0].email }}</p>
+          <p><strong>Phone:</strong> {{ loan[0].phone }}</p>
+          <p><strong>Address:</strong> {{ loan[0].address }}</p>
+        </div>
+
+        <div class="section">
+          <h4>Employment Information</h4>
+          <p><strong>Employer:</strong> {{ loan[0].employer }}</p>
+          <p><strong>Position:</strong> {{ loan[0].position }}</p>
+          <p><strong>Monthly Income:</strong> ₹{{ loan[0].income }}</p>
+        </div>
+
+        <div class="section">
+          <h4>Loan Details</h4>
+          <p><strong>Loan Amount:</strong> ₹{{ loan[0].loanAmount }}</p>
+          <p><strong>Purpose:</strong> {{ loan[0].loanPurpose }}</p>
+          <p><strong>Repayment Period:</strong> {{ loan[0].repaymentPeriod }} months</p>
+        </div>
+
+        <div class="actions">
+          <button *ngIf="user?.role !== 'SUPERVISOR'" class="approve" (click)="updateStatus('Approved')" [disabled]="loan[0].status !== 'SUBMITTED'">Approve</button>
+          <button *ngIf="user?.role !== 'SUPERVISOR'" class="reject" (click)="updateStatus('Rejected')" [disabled]="loan[0].status !== 'SUBMITTED'">Reject</button>
+          <button *ngIf="user?.role === 'SUPERVISOR'" class="btn btn-primary edit" (click)="editLoanApplication()" [disabled]="loan[0].status !== 'SUBMITTED'">Edit</button>
+        </div>
+      </div>
+    </div>

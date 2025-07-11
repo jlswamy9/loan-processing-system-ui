@@ -1,0 +1,10 @@
+.navbar-left{
+    height: 100%;
+}
+.nav-link{
+    color: #111;
+    font-weight: 600;
+}
+li a:hover{
+    color: #00a44c;
+}

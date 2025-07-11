@@ -1,0 +1,16 @@
+.login-btn{
+    background-color: #00a44c !important;
+    color: #fff;
+    border: #00a44c;
+}
+.card-title{
+    width: 100%;
+    background-color: #00a44c;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    padding:5%;
+}
+.login-form{
+    padding: 1.5rem !important;
+}

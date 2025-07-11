@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Login } from './components/login/login';
 import { AuthService } from './services/auth-service';
 import {  provideHttpClient } from '@angular/common/http';
+import { SharedModule } from '../shared/shared-module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {  provideHttpClient } from '@angular/common/http';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers:[AuthService,provideHttpClient()]
 })
