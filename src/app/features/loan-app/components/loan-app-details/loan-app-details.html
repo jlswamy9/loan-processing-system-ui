@@ -3,6 +3,7 @@
       <div class="card" *ngIf="loan">
         <h3>Loan ID : {{ loan[0].id }}</h3>
         <p><strong>Status:</strong>&nbsp;<span [ngClass]="loan[0].status">{{ loan[0].status }}</span></p>
+        <p><strong>Submitted On:</strong>&nbsp;<span [ngClass]="loan[0].status">{{ loan[0].submittedOn | date : 'dd MMM yyyy hh:mm a'}}</span></p>
 
         <div class="section">
           <h4>Personal Information</h4>
@@ -27,10 +28,60 @@
           <p><strong>Repayment Period:</strong> {{ loan[0].repaymentPeriod }} months</p>
         </div>
 
+        <div class="section" *ngIf="loan[0].statusHistory && loan[0].statusHistory.length > 0">
+          <h4>Status History</h4>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+              <th>Status</th>
+            <th>Assigned To</th>
+            <th>Comments</th>
+            <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of loan[0].statusHistory">
+              <td>{{item?.status}}</td>
+              <td>{{item?.assignedTo}}</td>
+              <td>{{item?.comments}}</td>
+              <td>{{item?.dateTime | date: 'dd/MM/yyyy hh:mm a'}}</td>
+            </tr>
+            </tbody>
+            
+          </table>
+        </div>
+        <div class="section" *ngIf="user?.role !== 'SUPERVISOR' ">
+          <form>
+            <label>Comments</label>
+            <textarea class="form-control" rows="5"  [(ngModel)]="reviewerComments" [ngModelOptions]="{standalone: true}"></textarea>
+          </form>
+        </div>
+
         <div class="actions">
-          <button *ngIf="user?.role !== 'SUPERVISOR'" class="approve" (click)="updateStatus('Approved')" [disabled]="loan[0].status !== 'SUBMITTED'">Approve</button>
-          <button *ngIf="user?.role !== 'SUPERVISOR'" class="reject" (click)="updateStatus('Rejected')" [disabled]="loan[0].status !== 'SUBMITTED'">Reject</button>
-          <button *ngIf="user?.role === 'SUPERVISOR'" class="btn btn-primary edit" (click)="editLoanApplication()" [disabled]="loan[0].status !== 'SUBMITTED'">Edit</button>
+          <a class="btn btn-secondary back" href="/loans">Back</a>
+          <!--supervisor buttons-->
+
+          <button *ngIf="user?.role === 'SUPERVISOR' && loan[0].status == 'DRAFT'" class="btn btn-primary edit" (click)="editLoanApplication()">Edit</button>
+          <button *ngIf="user?.role == 'SUPERVISOR' && loan[0].status == 'DRAFT'" class="approve" (click)="changeStatus('BANK_MANAGER','SUBMITTED')">Submit to Bank Manager</button>
+
+          <!--Manager Buttons-->
+          
+          <button *ngIf="user?.role === 'BANK_MANAGER' && loan[0]?.branchId === user?.branch?.branchId" class="approve" (click)="changeStatus('AUDITOR','SUBMITTED_TO_AUDITOR')" [disabled]="loan[0].status !== 'SUBMITTED'">Submit to Auditor</button>
+          <button *ngIf="user?.role === 'BANK_MANAGER' && loan[0]?.branchId === user?.branch?.branchId" class="approve" (click)="changeStatus('LOAN_DEPT_CLERK','SUBMITTED_TO_LOAN_DEPT_CLERK')" [disabled]="loan[0].status !== 'AUDITOR_VERIFIED'">Submit to Loans Department</button>
+          <button *ngIf="user?.role === 'BANK_MANAGER' && loan[0]?.branchId === user?.branch?.branchId" class="return" (click)="changeStatus('SUPERVISOR','DRAFT')"  [disabled]="loan[0].status !== 'SUBMITTED'">Return to Supervisor</button>
+
+          <!--Auditor Buttons-->
+          <button *ngIf="user?.role === 'AUDITOR'" class="approve" (click)="changeStatus('BANK_MANAGER','AUDITOR_VERIFIED')" [disabled]="loan[0].status !== 'SUBMITTED_TO_AUDITOR'">Verify & Return to Branch</button>
+          
+          <!-- Loan Dept Buttons-->
+          <button *ngIf="user?.role === 'LOAN_DEPT_CLERK'" class="approve" (click)="changeStatus('LOAN_DEPT_ASM','LOAN_DEPT_CLERK_APPROVED')" [disabled]="loan[0].status !== 'SUBMITTED_TO_LOAN_DEPT_CLERK'">Submit to ASM</button>
+          <button *ngIf="user?.role === 'LOAN_DEPT_ASM'" class="approve" (click)="changeStatus('LOAN_DEPT_MANAGER','LOAN_DEPT_ASM_APPROVED')" [disabled]="loan[0].status !== 'LOAN_DEPT_CLERK_APPROVED'">Submit to Manager</button>
+          <button *ngIf="user?.role === 'LOAN_DEPT_MANAGER'" class="approve" (click)="changeStatus('AGM','LOAN_DEPT_MANAGER_APPROVED')" [disabled]="loan[0].status !== 'LOAN_DEPT_ASM_APPROVED'">Submit to AGM</button>
+          <button *ngIf="user?.role === 'AGM'" class="approve" (click)="agmApproved(loan[0])" [disabled]="loan[0].status !== 'LOAN_DEPT_MANAGER_APPROVED'">Approve</button>
+
+          <!-- GM/DGM/CEO Buttons-->
+          <button *ngIf="user?.role === 'DGM'" class="approve" (click)="approveLoan('DGM_APPROVED')" [disabled]="loan[0].status !== 'AGM_APPROVED'">Approve</button>
+
         </div>
       </div>
     </div>

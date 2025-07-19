@@ -1,1 +1,14 @@
+.pending-card{
+    background-color: orange;
+    color: #fff;
+}
+
+.approved-card{
+    background-color: green;
+    color: #fff;
+}
+.rejected-card{
+    background-color: red;
+    color: #fff;
+}
 

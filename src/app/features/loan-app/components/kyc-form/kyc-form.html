@@ -1,0 +1,175 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4 text-align-center">
+  <h2 >KYC Details</h2>
+
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+  <form [formGroup]="kycForm" (ngSubmit)="onSubmit()" class="container mt-4">
+<div class="row">
+  <!-- Aadhaar Number -->
+  <div class="col-sm-6 mb-3">
+    <label for="aadharNumber" class="form-label">Aadhaar Number</label>
+    <input type="text" id="aadharNumber" placeholder="XXXX-XXXX-XXXX" class="form-control" formControlName="aadharNumber" maxlength="12" />
+    <div class="text-danger" *ngIf="kycForm.get('aadharNumber')?.invalid && kycForm.get('aadharNumber')?.touched">
+      Enter valid 12-digit Aadhaar Number
+    </div>
+  </div>
+
+  <!-- PAN Number -->
+  <div class="col-sm-6 mb-3">
+    <label for="panNumber" class="form-label">PAN Number</label>
+    <input type="text" id="panNumber" class="form-control" formControlName="panNumber" maxlength="10" />
+    <div class="text-danger" *ngIf="kycForm.get('panNumber')?.invalid && kycForm.get('panNumber')?.touched">
+      Enter valid PAN (e.g., ABCDE1234F)
+    </div>
+  </div>
+
+  <!-- Other Document -->
+  <!-- <div class="mb-3">
+    <label for="otherDocType" class="form-label">Other Document</label>
+    <select id="otherDocType" class="form-select" formControlName="otherDocType">
+      <option value="">Select</option>
+      <option value="Passport">Passport</option>
+      <option value="Voter ID">Voter ID</option>
+      <option value="House Tax">House Tax</option>
+      <option value="ETC Bill">ETC Bill</option>
+      <option value="Ration Card">Ration Card</option>
+    </select>
+  </div> -->
+
+  <!-- Prefix -->
+  <div class="col-sm-6 mb-3">
+    <label for="namePrefix" class="form-label">Name Prefix</label>
+    <select class="form-select" formControlName="namePrefix">
+      <option value="">Select</option>
+      <option value="Mr.">Mr.</option>
+      <option value="Mrs.">Mrs.</option>
+      <option value="Shri">Shri</option>
+      <option value="Smt.">Smt.</option>
+      <option value="Kumari">Kumari</option>
+    </select>
+  </div>
+
+  <!-- Name Fields -->
+  <div class="col-sm-6 mb-3">
+    <label class="form-label">Applicant Name</label>
+    <input type="text" class="form-control" formControlName="applicantName" />
+  </div>
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Father's Name</label>
+    <input type="text" class="form-control" formControlName="fatherName" />
+  </div>
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Mother's Name</label>
+    <input type="text" class="form-control" formControlName="motherName" />
+  </div>
+
+  <!-- Address Fields -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Permanent Address</label>
+    <textarea class="form-control" formControlName="permanentAddress"></textarea>
+  </div>
+  
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Communication Address</label>
+    <!-- <input type="checkbox" class="form-check-input" formControlName="sameAsPermanent" id="sameAsPermanent" />
+    <label class="form-check-label" for="sameAsPermanent">Same as Permanent Address</label> -->
+    <textarea class="form-control" formControlName="communicationAddress"></textarea>
+  </div>
+
+  <!-- Mobile Numbers -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Mobile Number</label>
+    <input type="text" class="form-control" formControlName="mobile1" />
+  </div>
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Alternative Mobile Number</label>
+    <input type="text" class="form-control" formControlName="mobile2" />
+  </div>
+
+  <!-- Email -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Email Address</label>
+    <input type="email" class="form-control" formControlName="email" />
+  </div>
+
+  <!-- Social Category -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Social Category</label>
+    <select class="form-select" formControlName="socialCategory">
+      <option value="">Select</option>
+      <option value="OC">OC</option>
+      <option value="O-BC">O-BC</option>
+      <option value="SC">SC</option>
+      <option value="ST">ST</option>
+      <option value="Minority">Minority</option>
+      <option value="Others">Others</option>
+    </select>
+  </div>
+
+  <!-- Gender -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Gender</label>
+    <select class="form-select" formControlName="gender">
+      <option value="">Select</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Others">Others</option>
+    </select>
+  </div>
+
+  <!-- DOB and Age -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Date of Birth</label>
+    <input type="date" class="form-control" formControlName="dob" />
+  </div>
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Age</label>
+    <input type="text" class="form-control" [value]="kycForm.get('age')?.value" disabled />
+  </div>
+
+  <!-- Nationality & Marital Status -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Nationality</label>
+    <input type="text" class="form-control" formControlName="nationality" />
+  </div>
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Marital Status</label>
+    <select class="form-select" formControlName="maritalStatus">
+      <option value="">Select</option>
+      <option value="Married">Married</option>
+      <option value="Unmarried">Unmarried</option>
+    </select>
+  </div>
+
+  <!-- Image Upload -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Applicant Image</label>
+    <input type="file" class="form-control" formControlName="applicantImage" />
+  </div>
+
+  <!-- Signature Upload -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Signature</label>
+    <input type="file" class="form-control" formControlName="signature" />
+  </div>
+<div class="col-sm-6"></div>
+  <!-- Guarantor Conditional Flag -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Guarantor Required</label>
+    <input type="checkbox" class="form-check-input" formControlName="isGuarantorRequired" />
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4 text-align-center">
+  <button type="submit" class="btn btn-primary float-right">Save & Next</button>
+  </div>
+  <div class="col-sm-4"></div>
+</div>
+</form>
+
+</div>
