@@ -1,0 +1,102 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-align-center">
+  <h2 >Appraisal & Income Assesment</h2>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+  <form [formGroup]="creditForm" (ngSubmit)="onSubmit()" class="container mt-4">
+  <div formGroupName="liabilities" class="border p-3 mb-4 rounded">
+    <h5>Liabilities</h5>
+    <div class="row g-2">
+      <div class="col-md-4">
+        <label class="form-label">Loan Type</label>
+        <select class="form-select" formControlName="loanType">
+          <option value="Own Bank">Loans with Existing Bank</option>
+          <option value="Other Bank">Loans with Other Bank</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Total Loan Amount</label>
+        <input type="number" class="form-control" formControlName="totalLoanAmount" />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Total EMIs</label>
+        <input type="number" class="form-control" formControlName="totalEMI" />
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Income Source</label>
+    <select class="form-select" formControlName="incomeSource">
+      <option value="Salary">Salary</option>
+      <option value="Business">Business</option>
+      <option value="Rent">Rent</option>
+      <option value="Others">Others</option>
+      <option value="AgriAllied">Agri Allied</option>
+      <option value="FarmHire">Hiring of Farm Equipment</option>
+    </select>
+  </div>
+
+  <div *ngIf="creditForm.get('incomeSource')?.value === 'Salary'" class="mb-3 border p-3 rounded">
+    <h6>Salary Details</h6>
+    <input type="number" class="form-control mb-2" placeholder="Gross Income" formControlName="grossIncome" />
+    <input type="number" class="form-control mb-2" placeholder="Net Income" formControlName="netIncome" />
+    <input type="text" class="form-control bg-light" [disabled]="true" placeholder="2/3 Income Auto" formControlName="autoIncome" />
+  </div>
+
+  <div *ngIf="creditForm.get('incomeSource')?.value === 'Business'" class="mb-3 border p-3 rounded">
+    <h6>Business Details</h6>
+    <input class="form-control mb-2" placeholder="Business Name" formControlName="businessName" />
+    <input class="form-control mb-2" placeholder="PAN" formControlName="pan" />
+    <input class="form-control mb-2" placeholder="GST" formControlName="gst" />
+    <input class="form-control mb-2" placeholder="Ownership Type" formControlName="ownershipType" />
+    <input type="number" class="form-control mb-2" placeholder="Last 3 Yr Income (ITR)" formControlName="last3YrIncome" />
+    <input type="text" class="form-control" placeholder="Upload Proof" formControlName="businessDocs" />
+  </div>
+
+  <div *ngIf="creditForm.get('incomeSource')?.value === 'Rent' || creditForm.get('incomeSource')?.value === 'Others'" class="mb-3 border p-3 rounded">
+    <h6>Rental/Other Income</h6>
+    <input type="number" class="form-control mb-2" placeholder="Amount" formControlName="rentIncome" />
+    <input type="text" class="form-control" placeholder="Upload Income Proof" formControlName="rentProof" />
+  </div>
+
+  <div *ngIf="creditForm.get('incomeSource')?.value === 'AgriAllied'" class="mb-3 border p-3 rounded">
+    <h6>Allied Activity</h6>
+    <select class="form-select mb-2" formControlName="alliedType">
+      <option value="Cow">Cow/Buffalo</option>
+      <option value="Goat">Goat/Sheep</option>
+      <option value="Poultry">Poultry</option>
+    </select>
+    <input type="number" class="form-control mb-2" placeholder="No. of Units" formControlName="noOfUnits" />
+    <input type="number" class="form-control bg-light" placeholder="Income (auto)" formControlName="unitIncome" [disabled]="true" />
+  </div>
+
+  <div *ngIf="creditForm.get('incomeSource')?.value === 'FarmHire'" class="mb-3 border p-3 rounded">
+    <h6>Farm Equipment Hire</h6>
+    <select class="form-select mb-2" formControlName="equipmentType">
+      <option value="Tractor">Tractor</option>
+      <option value="Harvester">Harvester</option>
+    </select>
+    <select class="form-select mb-2" formControlName="isOwned">
+      <option value="Own">Own</option>
+      <option value="Finance">Finance</option>
+    </select>
+    <input type="number" class="form-control mb-2" placeholder="Acquisition Cost" formControlName="acquisitionCost" />
+    <input type="number" class="form-control bg-light" placeholder="Hire Income (auto)" formControlName="hireIncome" [disabled]="true" />
+  </div>
+
+ <div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+     <div class="mt-4">
+    <button  (click)="onBackClick()" class="btn btn-secondary m-2">Back</button>
+    <button type="submit" class="btn btn-primary m-2">Save & Next</button>
+  </div>
+  </div>
+  <div class="col-sm-4"></div>
+ </div>
+</form>
+</div>

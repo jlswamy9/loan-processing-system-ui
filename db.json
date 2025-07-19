@@ -1,21 +1,93 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "userId": "banksup001",
       "password": "sup123",
-      "role": "SUPERVISOR"
+      "role": "SUPERVISOR",
+      "roleName": "SUPERVISOR",
+      "branch": {
+        "branchId": 1,
+        "branchName": "KHAMMAM"
+      }
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": "bankmanager001",
       "password": "manager123",
-      "role": "MANAGER"
+      "role": "BANK_MANAGER",
+      "roleName": "MANAGER",
+      "branch": {
+        "branchId": 1,
+        "branchName": "KHAMMAM"
+      }
+    },
+    {
+      "id": "3",
+      "userId": "auditor001",
+      "password": "auditor123",
+      "role": "AUDITOR",
+      "bankId": 1
+    },
+    {
+      "id": "4",
+      "userId": "loandeptclerk001",
+      "password": "loandeptclerk123",
+      "role": "LOAN_DEPT_CLERK",
+      "roleName": "Staff Assistant",
+      "department": {
+        "departmentId": 1,
+        "departmentName": "Section Staff"
+      },
+      "bankId": 1
+    },
+    {
+      "id": "5",
+      "userId": "loandeptasm001",
+      "password": "loandeptasm123",
+      "role": "LOAN_DEPT_ASM",
+      "roleName": "Assistant Manager",
+      "department": {
+        "departmentId": 1,
+        "departmentName": "Section Staff"
+      }
+    },
+    {
+      "id": "6",
+      "userId": "loandeptmanager001",
+      "password": "loandeptmanager123",
+      "role": "LOAN_DEPT_MANAGER",
+      "roleName": "Manager",
+      "department": {
+        "departmentId": 1,
+        "departmentName": "Section Staff"
+      }
+    },
+    {
+      "id": "7",
+      "userId": "agm001",
+      "password": "agm123",
+      "role": "AGM",
+      "bankId": 1
+    },
+    {
+      "id": "8",
+      "userId": "dgm001",
+      "password": "dgm123",
+      "role": "DGM",
+      "bankId": 1
+    },
+    {
+      "id": "9",
+      "userId": "gm001",
+      "password": "gm123",
+      "role": "GM",
+      "bankId": 1
     }
   ],
   "loans": [
     {
-      "fullName": "Rohit Sharma",
+      "fullName": "RAHUL SHARMA",
       "dob": "1990-05-15",
       "idNumber": "12344",
       "email": "rahul.sharma@example.com",
@@ -27,11 +99,86 @@
       "loanAmount": 500000,
       "loanPurpose": "Home",
       "repaymentPeriod": 60,
-      "status": "SUBMITTED",
-      "id": "756789"
+      "status": "DGM_APPROVED",
+      "id": "756789",
+      "submittedOn": 1752227207,
+      "assignedTo": "BANK_MANAGER",
+      "statusHistory": [
+        {
+          "status": "DRAFT",
+          "assignedTo": "SUPERVISOR",
+          "dateTime": 1752227207
+        },
+        {
+          "status": "SUBMITTED",
+          "assignedTo": "BANK_MANAGER",
+          "dateTime": 1752227207
+        },
+        {
+          "assignedTo": "SUPERVISOR",
+          "status": "DRAFT",
+          "dateTime": 1752251812398,
+          "comments": "Provide full name in capital letters."
+        },
+        {
+          "assignedTo": "BANK_MANAGER",
+          "status": "SUBMITTED",
+          "dateTime": 1752251871137,
+          "comments": ""
+        },
+        {
+          "assignedTo": "AUDITOR",
+          "status": "SUBMITTED_TO_AUDITOR",
+          "dateTime": 1752251950567,
+          "comments": "Please verify the provided documents."
+        },
+        {
+          "assignedTo": "BANK_MANAGER",
+          "status": "AUDITOR_VERIFIED",
+          "dateTime": 1752252324988,
+          "comments": "Verified"
+        },
+        {
+          "assignedTo": "LOAN_DEPT_CLERK",
+          "status": "SUBMITTED_TO_LOAN_DEPT_CLERK",
+          "dateTime": 1752314858125,
+          "comments": "Submitting to loans dept."
+        },
+        {
+          "assignedTo": "LOAN_DEPT_ASM",
+          "status": "LOAN_DEPT_CLERK_APPROVED",
+          "dateTime": 1752318101689,
+          "comments": ""
+        },
+        {
+          "assignedTo": "LOAN_DEPT_MANAGER",
+          "status": "LOAN_DEPT_ASM_APPROVED",
+          "dateTime": 1752318149705,
+          "comments": ""
+        },
+        {
+          "assignedTo": "AGM",
+          "status": "LOAN_DEPT_MANAGER_APPROVED",
+          "dateTime": 1752318240108,
+          "comments": ""
+        },
+        {
+          "assignedTo": "DGM",
+          "status": "AGM_APPROVED",
+          "dateTime": 1752318315717,
+          "comments": ""
+        },
+        {
+          "assignedTo": "BANK_MANAGER",
+          "status": "DGM_APPROVED",
+          "dateTime": 1752318440424,
+          "comments": ""
+        }
+      ],
+      "branchId": 1
     },
     {
-      "fullName": "John Willaims",
+      "fullName": "JOHN WILLIAMS",
       "dob": "1987-04-08",
       "idNumber": "9188177171",
       "email": "johnw@test.com",
@@ -43,8 +190,56 @@
       "loanAmount": 5000000,
       "loanPurpose": "home",
       "repaymentPeriod": 90,
-      "status": "SUBMITTED",
-      "id": "b6eb"
+      "status": "SUBMITTED_TO_AUDITOR",
+      "id": "b6eb",
+      "submittedOn": 1752227207,
+      "statusHistory": [
+        {
+          "assignedTo": "BANK_MANAGER",
+          "status": "SUBMITTED",
+          "dateTime": 1752240682723,
+          "comments": ""
+        },
+        {
+          "assignedTo": "SUPERVISOR",
+          "status": "DRAFT",
+          "dateTime": 1752240859539,
+          "comments": "Returning to supervisor"
+        },
+        {
+          "assignedTo": "BANK_MANAGER",
+          "status": "SUBMITTED",
+          "dateTime": 1752240916376,
+          "comments": ""
+        },
+        {
+          "assignedTo": "AUDITOR",
+          "status": "SUBMITTED_TO_AUDITOR",
+          "dateTime": 1752254708333,
+          "comments": ""
+        }
+      ],
+      "branchId": 1,
+      "assignedTo": "AUDITOR"
+    },
+    {
+      "id": "62ef",
+      "fullName": "ABC Test",
+      "dob": "1995-07-03",
+      "idNumber": "1234564674",
+      "email": "test@test.com",
+      "phone": "98373737",
+      "address": "Test address",
+      "employer": "ABC Corp",
+      "position": "Engineer",
+      "income": 100000,
+      "loanAmount": 5000000,
+      "loanPurpose": "home",
+      "repaymentPeriod": 120,
+      "status": "DGM_APPROVED",
+      "assignedTo": "BANK_MANAGER",
+      "submittedOn": 1752921108372,
+      "branchId": 1
     }
   ]
 }

@@ -1,5 +1,6 @@
 .navbar-brand img{
     width:300px;
+    float: left;
 }
 .header-navbar{
     border-bottom: solid 2px #00a44c;
@@ -7,8 +8,24 @@
     text-align: center;
 }
 
-.nav-link{
+button.nav-link{
     color: #00a44c !important;
-    
+}
+.nav-link{
+    color: #000;
+}
+.header-navbar-row{
+    width: 100%;
+}
+
+.brand-title{
+    font-weight: 600;
+    font-size: 2rem;
+}
+.branch-name{
+    font-size: 9px;
+}
+h4.nav-link{
+    font-weight: 700;margin-top: 2%;
 }
 

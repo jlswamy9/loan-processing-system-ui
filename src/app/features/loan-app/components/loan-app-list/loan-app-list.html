@@ -1,7 +1,13 @@
 <div class="container-fluid">
       <h2>Loan Applications</h2>
       <!-- <a href="loans/create" class="btn btn-primary btn-create mb-2">Apply New Loan</a> -->
-      <table>
+       <div class="dropdown-filter mb-2 pt-1" *ngIf="user.role !== 'SUPERVISOR'" >
+        <select id="form-select" class="form-select" (change)="onSelectionChange()" [(ngModel)]="selectedFilterValue">
+          <option [value]="true">Pending With Me</option>
+          <option [value]="false">Processed By Me</option>
+        </select>
+       </div>
+      <table class="table-bordered" *ngIf="loanApplications$ | async as loanApplications">
         <thead>
           <tr>
             <th>Loan Id</th>
@@ -11,8 +17,8 @@
             <th>Status</th>
           </tr>
         </thead>
-        <tbody>
-          <tr *ngFor="let app of items$ | async">
+        <tbody *ngIf="loanApplications.length; else noItems">
+          <tr *ngFor="let app of loanApplications">
             <td>
                 <a href="/loans/details?loanId={{app.id}}">{{ app.id }}</a> 
             </td>
@@ -28,5 +34,8 @@
             </td> -->
           </tr>
         </tbody>
+        <ng-template #noItems>
+          <p pl-5>No Records Found!</p>
+        </ng-template>
       </table>
     </div>

@@ -1,10 +1,10 @@
 
     <!-- Main Content -->
     <div class="flex-grow-1 p-4">
-      <h2>Welcome,{{user ? user.role:""}}</h2>
+      <h4>Welcome,<b>{{user ? user.role:""}}</b></h4>
       <div class="row">
         <div class="col-md-4 mb-3">
-          <div class="card shadow-sm">
+          <div class="card shadow-sm pending-card">
             <div class="card-body">
               <h5 class="card-title">Pending Loans</h5>
               <p class="card-text display-6">12</p>
@@ -12,15 +12,15 @@
           </div>
         </div>
         <div class="col-md-4 mb-3">
-          <div class="card shadow-sm">
+          <div class="card shadow-sm approved-card">
             <div class="card-body">
-              <h5 class="card-title">Approved Today</h5>
+              <h5 class="card-title">Approved</h5>
               <p class="card-text display-6">5</p>
             </div>
           </div>
         </div>
         <div class="col-md-4 mb-3">
-          <div class="card shadow-sm">
+          <div class="card shadow-sm rejected-card">
             <div class="card-body">
               <h5 class="card-title">Rejected Applications</h5>
               <p class="card-text display-6">3</p>

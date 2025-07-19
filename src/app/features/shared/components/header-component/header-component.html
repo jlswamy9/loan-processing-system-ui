@@ -1,18 +1,39 @@
  <!-- Top Navbar -->
   <nav class="header-navbar navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <div class="row header-navbar-row">
+        <div class="col-sm-4">
+          <a class="navbar-brand" href="#">
         <img src="dccb-logo.png" />
-      </a>
+      </a></div>
+        <div class="col-sm-4">
+            <h4 class="brand-title">Digi - Loans</h4>
+        </div>
+        <div class="col-sm-4">
+          
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav" *ngIf="!hideNavbar">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <button class="nav-link" (click)="logout()">Logout</button>
+            <i class="bi bi-person-circle nav-link"></i>
+          </li>
+          <li class="nav-item">
+            <h4 class="nav-link">  {{user.roleName}} 
+               <small class="text-muted branch-name" *ngIf="user.branch">({{user.branch ? user.branch.branchName : ""}})</small>
+               <small class="text-muted branch-name" *ngIf="user.department">({{user.department ? user.department.departmentName : ""}})</small>
+              
+              </h4>
+            
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" (click)="logout()"> <i class="bi-box-arrow-right fs-5"></i></button>
           </li>
         </ul>
       </div>
+        </div>
+      </div>
+      
     </div>
   </nav>

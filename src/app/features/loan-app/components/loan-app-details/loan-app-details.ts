@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { LoanApplicationDetails } from '../../models/loan-application-details';
+import { LoanApplicationDetails, StatusHistory } from '../../models/loan-application-details';
 import { User } from '../../../auth/models/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoanAppService } from '../../services/loan-app-service';
 import { Observable, switchMap } from 'rxjs';
+import { ChangeStatusRequest } from '../../models/change-status-request';
 
 @Component({
   standalone:false,
@@ -15,6 +16,10 @@ export class LoanAppDetails {
     user!:User;
     loanId!:any;
     loanDetails$!:Observable<LoanApplicationDetails[]>;
+    loanApplicationDetails!:LoanApplicationDetails;
+    changeStatusRequest?:ChangeStatusRequest;
+    statusHistory?:StatusHistory[] = [];
+    reviewerComments:string = "";
 
   constructor(
     private router:Router,
@@ -33,9 +38,16 @@ export class LoanAppDetails {
     this.user = JSON.parse(usrStr ? usrStr:"");
     this.loanId = this.route.snapshot.queryParamMap.get("loanId");
     console.log(this.loanId);
-
+    this.getLoanDetails();
   }
 
+  getLoanDetails(){
+    this.loanDetails$.subscribe(data=>{
+        if(data.length > 0){
+          this.loanApplicationDetails = data[0];
+        }
+    });
+  }
   updateStatus(newStatus:any) {
     // if (this.application) {
     //   this.application.status = newStatus;
@@ -45,5 +57,39 @@ export class LoanAppDetails {
   editLoanApplication(){
     console.log(this.loanId);
     this.router.navigate(['loans','create'],{queryParams:{loanId:this.loanId}});
+  }
+
+  changeStatus(assignedTo:any,status:any){
+   this.statusHistory = this.loanApplicationDetails.statusHistory;
+   let newStatusHistory:StatusHistory = {
+    assignedTo:assignedTo,
+    status:status,
+    dateTime:Date.now(),
+    comments:this.reviewerComments
+   };
+
+   this.statusHistory?.push(newStatusHistory);
+
+    this.changeStatusRequest = {
+      assignedTo:assignedTo,
+      status:status,
+      statusHistory:this.statusHistory
+    }
+
+    this.loanService.changeStatus(this.loanId,this.changeStatusRequest).subscribe((data=>{
+        if(data){
+          console.log("Application submitted succesfully!");
+          this.router.navigate(['loans']);
+        }
+    }
+  ));
+  }
+
+  agmApproved(loan:any){
+    loan.loanAmount > 5000000 ? this.changeStatus('GM','AGM_APPROVED'):this.changeStatus('DGM','AGM_APPROVED');
+  }
+
+  approveLoan(status:any){
+    this.changeStatus('BANK_MANAGER',status);
   }
 }

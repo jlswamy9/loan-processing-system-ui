@@ -1,0 +1,166 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-align-center">
+  <h2 >Basic Details</h2>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+<form [formGroup]="loanForm" (ngSubmit)="onSubmit()" class="container mt-4">
+<div class="row">
+  <!-- CID -->
+  <div class="mb-3 col-sm-6">
+    <label class="form-label">Customer Identification Number (CID)</label>
+    <input type="text" class="form-control" formControlName="cid" />
+  </div>
+
+  <!-- Account Number -->
+  <div class="mb-3  col-sm-6">
+    <label class="form-label">Applicant's Saving/Current Account</label>
+    <input type="text" class="form-control" formControlName="accountNumber" />
+  </div>
+
+  <!-- CIBIL Score -->
+  <div class="mb-3  col-sm-4">
+    <label class="form-label">CIBIL Score</label>
+    <input type="text" class="form-control" formControlName="cibilScore" />
+  </div>
+
+  <!-- Education Qualification -->
+  <div class="mb-3  col-sm-4">
+    <label class="form-label">Education Qualification</label>
+    <select class="form-select" formControlName="education">
+      <option value="">Select</option>
+      <option value="Upto 7th">Up to 7th</option>
+      <option value="SSC">SSC</option>
+      <option value="Inter">Inter</option>
+      <option value="Graduation">Graduation</option>
+      <option value="Post-Graduation">Post-Graduation</option>
+      <option value="Illiterate">Illiterate</option>
+    </select>
+  </div>
+
+  <!-- Occupation -->
+  <div class="mb-3  col-sm-4">
+    <label class="form-label">Occupation</label>
+    <select class="form-select" formControlName="occupation">
+      <option value="">Select</option>
+      <option value="Farmer">Farmer</option>
+      <option value="Salaried Employee">Salaried Employee</option>
+      <option value="Private Employee">Private Employee</option>
+      <option value="Professional or Self Employee">Professional or Self Employee</option>
+      <option value="Others">Others</option>
+    </select>
+  </div>
+
+  <!-- Family Details -->
+  <div formArrayName="familyDetails">
+    <label class="form-label d-block">Family Details</label>
+    <div *ngFor="let member of familyDetails.controls; let i = index"
+  [formGroupName]="i" class="row g-2 mb-2">
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Name" formControlName="name" />
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Father/Spouse" formControlName="fatherOrSpouse" />
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control" placeholder="Relation" formControlName="relation" />
+      </div>
+      <div class="col-md-2">
+        <input type="number" class="form-control" placeholder="Age" formControlName="age" />
+      </div>
+      <div class="col-md-2 d-flex align-items-center">
+        <button class="btn btn-danger btn-sm" (click)="removeFamilyMember(i)">X</button>
+      </div>
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm mb-3" (click)="addFamilyMember()">+ Add Family Member</button>
+  </div>
+
+  <!-- Type of Loan -->
+  <div class="mb-3 col-sm-4">
+    <label class="form-label">Type of Loan</label>
+    <select class="form-select" formControlName="loanType">
+      <option value="Secure" selected>Secure</option>
+      <option value="Unsecure">Unsecure</option>
+    </select>
+  </div>
+
+  <!-- Product -->
+  <div class="mb-3 col-sm-4" *ngIf="loanForm.get('loanType')?.value === 'Secure'">
+    <label class="form-label">Secure Product</label>
+    <select class="form-select" formControlName="product">
+      <option value="">Select</option>
+      <option *ngFor="let p of secureProducts" [value]="p">{{ p }}</option>
+    </select>
+  </div>
+
+  <div class="mb-3 col-sm-4" *ngIf="loanForm.get('loanType')?.value === 'Unsecure'">
+    <label class="form-label">Unsecure Product</label>
+    <select class="form-select" formControlName="product">
+      <option value="">Select</option>
+      <option *ngFor="let p of unsecureProducts" [value]="p">{{ p }}</option>
+    </select>
+  </div>
+
+  <!-- Purpose of Loan -->
+  <div class="mb-3 col-sm-4">
+    <label class="form-label">Purpose of Loan</label>
+    <select class="form-select" formControlName="purpose">
+      <option value="">Select</option>
+      <option value="Business">Business</option>
+      <option value="Personnel">Personnel</option>
+      <option value="Housing">Housing</option>
+      <option value="Education">Education</option>
+      <option value="Vehicle">Vehicle</option>
+      <option value="CCOD">CCOD</option>
+      <option value="Others">Others</option>
+    </select>
+  </div>
+
+  <!-- Remarks if Purpose is Others -->
+  <div class="mb-3 col-sm-4" *ngIf="loanForm.get('purpose')?.value === 'Others'">
+    <label class="form-label">Remarks</label>
+    <textarea class="form-control" formControlName="purposeRemarks"></textarea>
+  </div>
+
+  <!-- Repayment Details -->
+  <div class="mb-3 col-sm-4">
+    <label class="form-label">Repayment Period</label>
+    <select class="form-select" formControlName="repaymentMode">
+      <option value="Monthly">Monthly</option>
+      <option value="Quarterly">Quarterly</option>
+      <option value="Half-Yearly">Half-Yearly</option>
+      <option value="Yearly">Yearly</option>
+    </select>
+  </div>
+  <div class="mb-3 col-sm-4">
+    <div class="row">
+    <div class="col-md-6">
+      <label class="form-label">Years</label>
+      <input type="number" class="form-control" formControlName="years" />
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Months</label>
+      <input type="number" class="form-control" formControlName="months" />
+    </div>
+    </div>
+  </div>
+
+  <!-- EMI -->
+  <div class="mb-3 col-sm-4">
+    <label class="form-label">EMI Amount</label>
+    <input type="text" class="form-control" formControlName="emiAmount" />
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-align-center">
+      <button  (click)="onBackClick()" class="btn btn-secondary m-2">Back</button>
+    <button type="submit" class="btn btn-primary m-2">Save & Next</button>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+
+</form>
+</div>

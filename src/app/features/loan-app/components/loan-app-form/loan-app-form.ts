@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { LoanApplicationDetails } from '../../models/loan-application-details';
 import { LoanAppService } from '../../services/loan-app-service';
+import { User } from '../../../auth/models/user';
 
 @Component({
   standalone:false,
@@ -18,6 +19,7 @@ export class LoanAppForm {
   applicationData!:LoanApplicationDetails;
   loanId!:any;
   mode?:'create' | 'update' = "create";
+  user!: any;
 
   constructor(private fb: FormBuilder, private router:Router,private loanService:LoanAppService,private route:ActivatedRoute) {
     this.loanDetails$ = this.route.queryParamMap.pipe(
@@ -41,6 +43,11 @@ export class LoanAppForm {
       loanPurpose: ['', Validators.required],
       repaymentPeriod: [null]
     }); 
+
+     let jsonStr = localStorage.getItem("user");
+    if (jsonStr !== null) {
+      this.user = JSON.parse(jsonStr);
+    }
   }
 
   ngOnInit(){
@@ -64,7 +71,7 @@ export class LoanAppForm {
   }
   updateLoanDetails(){
     let application:LoanApplicationDetails = this.loanForm.value;
-    application.status = 'SUBMITTED';
+    application.status = 'DRAFT';
     this.loanService.updateLoanById(this.loanId,application).subscribe((res:any)=>{
       this.applicationData = res;
     },(err)=>{},
@@ -77,7 +84,10 @@ export class LoanAppForm {
 
    submitNewLoan(){
     let application:LoanApplicationDetails = this.loanForm.value;
-    application.status = 'SUBMITTED';
+    application.status = 'DRAFT';
+    application.assignedTo = 'SUPERVISOR';
+    application.submittedOn = Date.now();
+    application.branchId = this.user.branch.branchId;
     this.loanService.createLoan(application).subscribe((res:any)=>{
       this.applicationData = res;
     },(err)=>{},
