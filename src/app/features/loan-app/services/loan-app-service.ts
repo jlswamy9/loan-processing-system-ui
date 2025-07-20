@@ -9,7 +9,7 @@ import { ChangeStatusRequest } from '../models/change-status-request';
   providedIn: 'root'
 })
 export class LoanAppService {
-  base_url:string = "http://localhost:3000";
+  base_url:string = "http://digiloans.vishantra.com/api";
 
   constructor(private http:HttpClient) { }
 

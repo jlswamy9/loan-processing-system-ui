@@ -7,7 +7,12 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = "http://localhost:3000/users";
+  private baseUrl = "http://digiloans.vishantra.com/api/users";
+  private _isLoggedIn = false;
+
+  get isLoggedIn(): boolean {
+    return this._isLoggedIn;
+  }
 
   constructor(private http:HttpClient) { }
 
